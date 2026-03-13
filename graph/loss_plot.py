@@ -1,3 +1,4 @@
+import learn
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
@@ -15,6 +16,7 @@ model.compile(loss='mean_squared_error',
 
 history = model.fit(c_train,f_train, epochs=500,validation_data=(c_val,f_val), verbose=False)
 print("Finished training the model")
+fig,ax = plt.subplots(2,1,figsize=(8,12))
 plt.figure(figsize=(8,5))
 plt.plot(history.history['loss'], label='Training Loss')
 plt.plot(history.history['val_loss'], label='Validation Loss')
