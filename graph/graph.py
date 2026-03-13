@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+import matplotlib.pyplot as plt
 
 c_train= np.array([-40, -10,  0,  8, 15, 22,  38],  dtype=float)
 f_train= np.array([-40,  14, 32, 46, 59, 72, 100],  dtype=float)
@@ -12,5 +13,13 @@ model = tf.keras.Sequential([
 model.compile(loss='mean_squared_error',
               optimizer=tf.keras.optimizers.Adam(0.1), metrics=['mean_squared_error'])
 
-history = model.fit(c_train,f_train, epochs=500,c_val,f_val verbose=False)
+history = model.fit(c_train,f_train, epochs=500,validation_data=(c_val,f_val), verbose=False)
 print("Finished training the model")
+plt.figure(figsize=(8,5))
+plt.plot(history.history['loss'], label='Training Loss')
+plt.plot(history.history['val_loss'], label='Validation Loss')
+plt.title('Training vs Validation Loss (CNN)')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.legend()
+plt.show()
